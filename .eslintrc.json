@@ -18,10 +18,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "prettier"
-  ],
+  "plugins": ["react", "prettier"],
   "rules": {
     "quotes": [
       "error",
@@ -30,15 +27,10 @@
         "avoidEscape": true
       }
     ],
-    "react/jsx-uses-react": [
-      "warn"
-    ],
-    "react/react-in-jsx-scope": [
-      "warn"
-    ],
-    "react/jsx-props-no-spreading": [
-      "warn"
-    ],
+    "react/jsx-uses-react": ["warn"],
+    "react/react-in-jsx-scope": ["warn"],
+    "react/jsx-props-no-spreading": ["warn"],
+    "no-param-reassign": 0,
     "no-shadow": "off"
   }
 }

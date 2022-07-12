@@ -1,9 +1,6 @@
 import React from "react";
+import RouterApp from "./routers/RouterApp";
 
 export default function App() {
-  return (
-    <div>
-      <h1>Hello world</h1>
-    </div>
-  );
+  return <RouterApp />;
 }
