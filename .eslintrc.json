@@ -27,9 +27,13 @@
         "avoidEscape": true
       }
     ],
+    "jsx-a11y/aria-proptypes": ["off"],
+    "no-useless-return": ["off"],
+    "react/jsx-no-useless-fragment": ["off"],
     "react/jsx-uses-react": ["warn"],
     "react/react-in-jsx-scope": ["warn"],
     "react/jsx-props-no-spreading": ["warn"],
+    "jsx-a11y/label-has-associated-control": ["off"],
     "no-param-reassign": 0,
     "no-shadow": "off"
   }
