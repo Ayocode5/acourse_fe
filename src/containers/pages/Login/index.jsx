@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "../../../utils/api-clients";
-// import { setAuth } from "../../../config/redux/features/authSlice";
+import { setAuth } from "../../../config/redux/features/authSlice";
 
 export default function Login() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const emailRef = useRef();
   const errRef = useRef();
 
@@ -13,6 +13,7 @@ export default function Login() {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
+  // const { auth } = useSelector((state) => state.auth);
   useEffect(() => {
     emailRef.current.focus();
   }, []);
@@ -23,8 +24,6 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(pwd, email);
-
     try {
       const response = await axios.post(
         process.env.REACT_APP_API_URL_AUTH_LOGIN,
@@ -36,10 +35,12 @@ export default function Login() {
           },
         },
       );
-      console.log(JSON.stringify(response));
-
-      // console.log(JSON.stringify(response));
-
+      dispatch(
+        setAuth({
+          accessToken: response.data.access_token,
+          refreshToken: response.data.refresh_token,
+        }),
+      );
       setEmail("");
       setPwd("");
       setSuccess(true);
@@ -61,7 +62,7 @@ export default function Login() {
     <>
       {success ? (
         <section>
-          <h1>You are Logged in</h1>
+          <h1>You are Logged in </h1>
           <br />
           <p>
             <a href="/">Go to home</a>

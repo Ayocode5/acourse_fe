@@ -2,8 +2,8 @@ import todoReducer from "./todoSlice";
 import authReducer from "./authSlice";
 
 const rootReducers = {
-  todoReducer,
-  authReducer,
+  todo: todoReducer,
+  auth: authReducer,
 };
 
 export default rootReducers;
