@@ -2,13 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { IoInformationCircle, IoCheckmarkCircleOutline } from "react-icons/io5";
 import { FaTimesCircle } from "react-icons/fa";
 import axios from "../../../utils/api-clients";
+import registerRegex from "../../../utils/regex";
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/; // regex for username
-const PHONE_NUMBER_REGEX = /^(\+62|62|0)8[1-9][0-9]{6,9}$/;
-const EMAIL_REGEX =
-  // eslint-disable-next-line no-useless-escape
-  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/; // regex for password
+const { USER_REGEX, PWD_REGEX, EMAIL_REGEX, PHONE_NUMBER_REGEX } =
+  registerRegex;
+
 export default function Register() {
   const userRef = useRef();
   const errRef = useRef();
