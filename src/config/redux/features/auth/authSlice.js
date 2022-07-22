@@ -1,21 +1,26 @@
+/* eslint-disable camelcase */
 import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = () => {
+  return localStorage.getItem("authToken")
+    ? JSON.parse(localStorage.getItem("authToken"))
+    : { access_token: null, refresh_token: null };
+};
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    accessToken: null,
-    refreshToken: null,
-  },
-
+  initialState: initialState(),
   reducers: {
     setCredentials: (state, action) => {
-      const { accessToken, refreshToken } = action.payload;
-      state.accessToken = accessToken;
-      state.refreshToken = refreshToken;
+      state = { ...state, ...action.payload };
     },
     logOut: (state) => {
-      state.accessToken = null;
-      state.refreshToken = null;
+      // eslint-disable-next-line no-unused-expressions
+      localStorage.getItem("authToken")
+        ? localStorage.removeItem("authToken")
+        : null;
+      state.access_token = null;
+      state.refresh_token = null;
     },
   },
 });

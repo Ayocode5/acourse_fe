@@ -10,7 +10,7 @@ import {
 } from "../containers/pages";
 import Layout from "../components/Layout";
 import RequireAuth from "./RequireAuth";
-import PersistLogin from "../components/PersistLogin";
+// import PersistLogin from "../components/PersistLogin";
 
 export default function RouterApp() {
   return (
@@ -23,11 +23,9 @@ export default function RouterApp() {
           <Route path="/register" element={<Register />} />
 
           {/* Protect Route */}
-          <Route element={<PersistLogin />}>
-            <Route element={<RequireAuth />}>
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/class" element={<Class />} />
-            </Route>
+          <Route element={<RequireAuth />}>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/class" element={<Class />} />
           </Route>
 
           {/* Catch all */}
