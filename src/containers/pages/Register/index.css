@@ -1,0 +1,24 @@
+#register {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.register__form {
+  display: flex;
+  flex-direction: column;
+}
+.register__form input {
+  height: 44px;
+}
+.valid {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.invalid {
+  color: red;
+  margin-left: 0.25rem;
+}
