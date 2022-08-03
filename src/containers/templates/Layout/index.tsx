@@ -1,44 +1,45 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../../../components/organisms/Navbar";
-import useCookie, { setCookieItem } from "../../../hooks/useCookie";
-import AuthService from "../../../services/auth.service";
-import jwtDecode from "jwt-decode";
-import Token from "../../../types/token";
 
 const Layout = () => {
-  const [accesToken, setAccessToken] = useCookie("access_token", "");
-  const expireAccessToken = 50 * 1000;
+  // get access token from cookie
+  // const accessToken = AuthService.getAccessToken();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const updateToken = async () => {
-    try {
-      const response = await AuthService.refreshToken();
-      if (response.status === 200) {
-        const decoded = jwtDecode<Token>(response?.data.access_token);
-        const decoded2 = jwtDecode<Token>(response?.data.refresh_token);
-        setAccessToken(response.data.access_token, decoded.exp);
-        setCookieItem(
-          "refresh_token",
-          response?.data.refresh_token,
-          decoded2.exp
-        );
-        console.log("update token ", response.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // interval expire token
+  // const expireAccessToken = 50 * 1000;
 
-  useEffect(() => {
-    if (accesToken !== "") {
-      const interval = setInterval(() => {
-        updateToken();
-      }, expireAccessToken);
+  // update access token when interval expire
+  // const updateToken = useCallback(async () => {
+  //   try {
+  //     const response = await AuthService.refreshToken();
+  //     if (response.status === 200) {
+  //       const decoded = jwtDecode<Token>(response?.data.access_token);
+  //       setCookieItem("access_token", response?.data.access_token, decoded.exp);
+  //       const decoded2 = jwtDecode<Token>(response?.data.refresh_token);
+  //       setCookieItem(
+  //         "refresh_token",
+  //         response?.data.refresh_token,
+  //         decoded2.exp
+  //       );
+  //       console.log("update token ", response.data);
+  //     }
+  //   } catch (error) {
+  //     deleteCookie("access_token");
+  //     deleteCookie("refresh_token");
+  //     console.log(error);
+  //   }
+  // }, []);
 
-      return () => clearInterval(interval);
-    }
-  }, [accesToken, expireAccessToken, setAccessToken, updateToken]);
+  // useEffect(() => {
+  //   try {
+  //     const currentToken = jwtDecode<Token>(accessToken);
+  //     if (currentToken.exp * 1000 >= Date.now()) {
+  //       console.log("currentToken", currentToken);
+  //       updateToken();
+  //     }
+  //   } catch (error) {}
+  // }, [accessToken, expireAccessToken, updateToken]);
 
   return (
     <>

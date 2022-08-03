@@ -1,7 +1,7 @@
 import axios from "axios";
-import authHeader from "../services/auth-header";
+import userHeader from "../services/user-header";
 
 export default axios.create({
   baseURL: process.env.REACT_APP_USER_API,
-  headers: authHeader() as any,
+  headers: userHeader() as any,
 });

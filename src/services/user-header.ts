@@ -1,11 +1,10 @@
 import { getCookieItem } from "../hooks/useCookie";
 export default function authHeader() {
-  const refreshToken = getCookieItem("refresh_token");
-  if (refreshToken) {
+  const accessToken = getCookieItem("access_token");
+  if (accessToken) {
     return {
-      "Allow-Control-Allow-Origin": "*",
       "Content-Type": "application/json",
-      Authorization: "Bearer " + refreshToken,
+      Authorization: "Bearer " + accessToken,
       "X-User-Permission": "r",
     };
   } else {

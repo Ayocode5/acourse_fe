@@ -9,6 +9,10 @@ export const getCookieItem = (cname: string): string => {
   return cookie[cname];
 };
 
+export const deleteCookie = (key: string) => {
+  document.cookie = `${key}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+};
+
 export const setCookieItem = (
   key: string,
   value: string,

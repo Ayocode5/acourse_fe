@@ -2,8 +2,11 @@ import React, { useRef, useState } from "react";
 import Token from "../../../types/token";
 import jwt_decode from "jwt-decode";
 import AuthService from "../../../services/auth.service";
-import { Navigate } from "react-router-dom";
-import useCookie, { setCookieItem } from "../../../hooks/useCookie";
+import { Navigate, useNavigate } from "react-router-dom";
+import { setCookieItem } from "../../../hooks/useCookie";
+import { useSelector, useDispatch } from "react-redux";
+import { setIsLoggedIn } from "../../../features/auth/authReducer";
+
 import "./index.css";
 const Login = (): JSX.Element => {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -11,31 +14,32 @@ const Login = (): JSX.Element => {
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [navigate, setNavigate] = useState<boolean>(false);
+  const { isLoggedIn } = useSelector((state: any) => state.auth);
 
-  const [accessToken, setAccessToken] = useCookie("access_token", "");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    console.log({
-      email,
-      password,
-    });
 
     try {
       const res = await AuthService.login({ email, password });
       if (res.status === 200) {
         const jwtAccessToken = jwt_decode<Token>(res?.data.access_token);
         const jwtRefreshToken = jwt_decode<Token>(res?.data.refresh_token);
-
-        setAccessToken(res?.data.access_token, jwtAccessToken?.exp);
+        setCookieItem(
+          "access_token",
+          res?.data.access_token,
+          jwtAccessToken?.exp
+        );
         setCookieItem(
           "refresh_token",
           res?.data.refresh_token,
           jwtRefreshToken?.exp
         );
-        setNavigate(true);
-        window.location.reload();
+        dispatch(setIsLoggedIn(true));
+        navigate("/user/1", { replace: true });
+        // window.location.href = "/user/1";
       }
     } catch (error: any) {
       if (!error?.response) {
@@ -50,15 +54,19 @@ const Login = (): JSX.Element => {
     }
   };
 
-  if (accessToken) {
+  if (isLoggedIn) {
     return <Navigate to="/user/1" />;
   }
+
   return (
     <section id="login" className="login section-container">
       <h1>Login</h1>
-
       <form onSubmit={handleLogin} className="login__form">
-        <p ref={errorRef}></p>
+        {errorMsg && (
+          <p ref={errorRef} className="error">
+            {errorMsg}
+          </p>
+        )}
         <label htmlFor="email">Email</label>
         <input
           type="email"
