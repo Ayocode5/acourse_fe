@@ -8,12 +8,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { setIsLoggedIn } from "../../../features/auth/authReducer";
 
 import "./index.css";
+
 const Login = (): JSX.Element => {
   const emailRef = useRef<HTMLInputElement>(null);
   const errorRef = useRef<HTMLParagraphElement>(null);
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  // get state from redux store
   const { isLoggedIn } = useSelector((state: any) => state.auth);
 
   const navigate = useNavigate();
@@ -54,6 +57,7 @@ const Login = (): JSX.Element => {
     }
   };
 
+  // if logged in, redirect to user profile page
   if (isLoggedIn) {
     return <Navigate to="/user/1" />;
   }

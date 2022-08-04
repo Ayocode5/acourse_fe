@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../../app/store";
 import User from "../../types/user.type";
 
 // Define a type for the slice state
@@ -21,10 +22,12 @@ export const authSlice = createSlice({
     setIsLoggedIn: (state, action) => {
       state.isLoggedIn = action.payload;
     },
+    setCurrentUser: (state, action) => {
+      state.user = action.payload;
+    },
   },
 });
 
-// Other code such as selectors can use the imported `RootState` type
-
 export const { setIsLoggedIn } = authSlice.actions;
+export const getIsLoggedIn = (state: RootState) => state.auth.isLoggedIn;
 export default authSlice.reducer;

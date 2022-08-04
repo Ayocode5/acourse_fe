@@ -22,6 +22,11 @@ export const setCookieItem = (
   document.cookie = `${key}=${value};expires=${dateExpire.toUTCString()};path=/`;
 };
 
+export const clearAuthCookies = () => {
+  deleteCookie("access_token");
+  deleteCookie("refresh_token");
+};
+
 const useCookie = (key: string, defaultValue: string): any[] => {
   const getCookie = () => getCookieItem(key) || defaultValue;
   const [cookie, setCookie] = useState<string>(getCookie());

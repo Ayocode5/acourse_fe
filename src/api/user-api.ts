@@ -1,5 +1,5 @@
 import axios from "axios";
-import userHeader from "../services/user-header";
+import userHeader from "./headers/user-header";
 
 export default axios.create({
   baseURL: process.env.REACT_APP_USER_API,

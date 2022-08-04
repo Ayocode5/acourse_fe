@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { IoInformationCircle, IoCheckmarkCircleOutline } from "react-icons/io5";
-import { FaTimesCircle } from "react-icons/fa";
 import AuthService from "../../../services/auth.service";
 import registerRegex from "../../../utils/regex";
+import { IoInformationCircle, IoCheckmarkCircleOutline } from "react-icons/io5";
+import { FaTimesCircle } from "react-icons/fa";
 
 import "./index.css";
 
@@ -100,6 +100,7 @@ const Register = (): JSX.Element => {
       errRef.current?.focus();
     }
   };
+
   return (
     <>
       {success ? (

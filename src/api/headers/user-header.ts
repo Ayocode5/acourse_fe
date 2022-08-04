@@ -1,5 +1,6 @@
-import { getCookieItem } from "../hooks/useCookie";
-export default function authHeader() {
+import { getCookieItem } from "../../hooks/useCookie";
+
+export default function authHeader(): object {
   const accessToken = getCookieItem("access_token");
   if (accessToken) {
     return {
