@@ -1,4 +1,9 @@
 export default interface User {
+  isLoggedIn: boolean;
+  user: UserData | undefined;
+}
+
+export interface UserData {
   id?: number;
   username: string;
   email: string;
